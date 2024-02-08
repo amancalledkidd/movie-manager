@@ -12,7 +12,7 @@ class FilmTest {
 
     @BeforeEach
     void setUp() {
-        film = new Film("Inception", "Christopher Nolan", 2010, "Science Fiction");
+        film = new Film(1,"Inception", "Christopher Nolan", 2010, "Science Fiction");
     }
 
     @Test
@@ -61,7 +61,7 @@ class FilmTest {
 
     @Test
     void testToString() {
-        String expected = "Film{title='Inception', director='Christopher Nolan', releaseYear=2010, genre='Science Fiction'}";
+        String expected = "Film{id=1, title='Inception', director='Christopher Nolan', releaseYear=2010, genre='Science Fiction'}";
         assertEquals(expected, film.toString());
     }
 }

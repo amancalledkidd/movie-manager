@@ -1,18 +1,27 @@
 package com.moviemanager.api.model;
 
 public class Film {
+    private int id;
     private String title;
     private String director;
     private int releaseYear;
     private String genre;
 
-    public Film(String title, String director, int releaseYear, String genre) {
+    public Film(int id, String title, String director, int releaseYear, String genre) {
+        this.id = id;
         this.title = title;
         this.director = director;
         this.releaseYear = releaseYear;
         this.genre = genre;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -49,7 +58,8 @@ public class Film {
     @Override
     public String toString() {
         return "Film{" +
-                "title='" + title + '\'' +
+                "id=" + id +
+                ", title='" + title + '\'' +
                 ", director='" + director + '\'' +
                 ", releaseYear=" + releaseYear +
                 ", genre='" + genre + '\'' +
