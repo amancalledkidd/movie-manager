@@ -1,13 +1,25 @@
 package com.moviemanager.api.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Film {
-    private int id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     private String title;
     private String director;
     private int releaseYear;
     private String genre;
 
-    public Film(int id, String title, String director, int releaseYear, String genre) {
+
+    public Film() {}
+
+    public Film(long id, String title, String director, int releaseYear, String genre) {
         this.id = id;
         this.title = title;
         this.director = director;
@@ -15,11 +27,11 @@ public class Film {
         this.genre = genre;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -65,6 +77,7 @@ public class Film {
                 ", genre='" + genre + '\'' +
                 '}';
     }
+
 }
 
 
