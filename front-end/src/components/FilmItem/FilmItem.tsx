@@ -1,4 +1,4 @@
-import './FilmItem.css';
+import './FilmItem.scss';
 import { Film } from '../../types/Film'
 
 type FilmItemProps = {
