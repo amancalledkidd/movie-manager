@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:5173/", maxAge = 3600)
 @RestController
 public class FilmController {
 
@@ -21,7 +21,6 @@ public class FilmController {
 
 
     // CREATE
-
     @PostMapping("/film")
     public Film createGreeting(@RequestBody Film film){
         filmsService.addFilm(film);
