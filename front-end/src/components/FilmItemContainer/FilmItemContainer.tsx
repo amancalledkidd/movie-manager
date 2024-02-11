@@ -3,7 +3,7 @@ import FilmItem from '../FilmItem/FilmItem';
 import { Film } from '../../types/Film'
 
 type FilmItemContainerProps = {
-    films: Film[];
+    films: Film[]
 }
 
 const FilmItemContainer = ({films}: FilmItemContainerProps) => {

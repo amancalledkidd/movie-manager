@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import FilmItemContainer from '../FilmItemContainer/FilmItemContainer';
 import { Film } from '../../types/Film';
 import './Home.scss'
-import { FilmDatabaseApiResponse, FilmInfo } from '../../types/FilmApiResponse';
+import { FilmInfo } from '../../types/FilmApiResponse';
+import PopularFilmContainer from '../PopularFilmContainer/PopularFilmContainer';
 
 const Home = () => {
 
@@ -49,7 +50,7 @@ const Home = () => {
         <div>
         <h1>Home</h1>
         <FilmItemContainer films={films} />
-        <FilmItemContainer films={films} />
+        <PopularFilmContainer popularMovies={popularMovies} />
         </div>
     );
 };
