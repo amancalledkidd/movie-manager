@@ -1,0 +1,28 @@
+.film-item-container {
+    position: relative;
+    display: inline-block; 
+    width: fit-content;
+  
+    &__film-image {
+      display: block; 
+      width: auto; 
+      height: auto; 
+      max-height: 300px;
+    }
+  
+    &__add-icon {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.5); 
+      color: #fff; 
+      padding: 5px; 
+      cursor: pointer; 
+      border: none; 
+      font-size: 1rem;
+  
+      &:hover {
+        background: rgba(0, 0, 0, 0.7); // Darker background on hover for better UI feedback
+      }
+    }
+  }

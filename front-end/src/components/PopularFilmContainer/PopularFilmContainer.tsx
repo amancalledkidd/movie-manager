@@ -1,18 +1,18 @@
-import './PopularFilmContainer.scss'
-import { FilmInfo } from '../../types/FilmApiResponse'
-import TmdbFilmItem from '../TmdbFilmItem/TmdbFilmItem'
+import './PopularFilmContainer.scss';
+import { FilmInfo } from '../../types/FilmApiResponse';
+import TmdbFilmItem from '../TmdbFilmItem/TmdbFilmItem';
 
 type PopularFilmContainerProps = {
-    popularMovies: FilmInfo[]
-}
+    popularMovies: FilmInfo[];
+};
 
-const PopularFilmContainer = ({popularMovies}: PopularFilmContainerProps) => {
+const PopularFilmContainer = ({ popularMovies }: PopularFilmContainerProps) => {
     return (
-        <div>
-        <h1>PopularFilmContainer</h1>
-        <div>
-            {popularMovies.map(film => <TmdbFilmItem film={film} key={film.id} />)}
-        </div>
+        <div className="popular-film-container">
+            <h1 className="popular-film-container__title">Popular Films</h1>
+            <div className="popular-film-container__scroll">
+                {popularMovies.map(film => <TmdbFilmItem key={film.id} film={film} />)}
+            </div>
         </div>
     );
 };
