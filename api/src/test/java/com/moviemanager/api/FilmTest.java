@@ -12,7 +12,11 @@ class FilmTest {
 
     @BeforeEach
     void setUp() {
-        film = new Film(1,"Inception", "Christopher Nolan", 2010, "Science Fiction");
+        film = new Film();
+        film.setId(1);
+        film.setTitle("Inception");
+
+        film.setHaveWatched(true);
     }
 
     @Test
@@ -26,42 +30,22 @@ class FilmTest {
         assertEquals("Interstellar", film.getTitle());
     }
 
+
+
     @Test
-    void getDirector() {
-        assertEquals("Christopher Nolan", film.getDirector());
+    void getHaveWatched() {
+        assertTrue(film.getHaveWatched());
     }
 
     @Test
-    void setDirector() {
-        film.setDirector("Steven Spielberg");
-        assertEquals("Steven Spielberg", film.getDirector());
-    }
-
-    @Test
-    void getReleaseYear() {
-        assertEquals(2010, film.getReleaseYear());
-    }
-
-    @Test
-    void setReleaseYear() {
-        film.setReleaseYear(2014);
-        assertEquals(2014, film.getReleaseYear());
-    }
-
-    @Test
-    void getGenre() {
-        assertEquals("Science Fiction", film.getGenre());
-    }
-
-    @Test
-    void setGenre() {
-        film.setGenre("Action");
-        assertEquals("Action", film.getGenre());
+    void setHaveWatched() {
+        film.setHaveWatched(false);
+        assertFalse(film.getHaveWatched());
     }
 
     @Test
     void testToString() {
-        String expected = "Film{id=1, title='Inception', director='Christopher Nolan', releaseYear=2010, genre='Science Fiction'}";
+        String expected = "Film{id=1, title='Inception', haveWatched=true}";
         assertEquals(expected, film.toString());
     }
 }

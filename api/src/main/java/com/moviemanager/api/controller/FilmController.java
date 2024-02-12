@@ -2,6 +2,7 @@ package com.moviemanager.api.controller;
 
 import com.moviemanager.api.exceptions.FilmNotFoundException;
 import com.moviemanager.api.model.Film;
+import com.moviemanager.api.model.FilmData;
 import com.moviemanager.api.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class FilmController {
 
     // CREATE
     @PostMapping("/film")
-    public Film createGreeting(@RequestBody Film film){
+    public FilmData createGreeting(@RequestBody FilmData film){
         filmsService.addFilm(film);
         return film;
     }

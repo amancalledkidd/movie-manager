@@ -1,7 +1,9 @@
 package com.moviemanager.api.service;
 
 import com.moviemanager.api.exceptions.FilmNotFoundException;
+import com.moviemanager.api.mapper.FilmMapper;
 import com.moviemanager.api.model.Film;
+import com.moviemanager.api.model.FilmData;
 import com.moviemanager.api.repository.FilmRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class FilmService {
+
     @Autowired
     FilmRepository filmRepository;
+    @Autowired
+    FilmMapper filmMapper;
 
-    public void addFilm(Film film) {
+
+    public void addFilm(FilmData filmData) {
+        Film film = filmMapper.filmDataToFilm(filmData);
         filmRepository.save(film);
     }
 

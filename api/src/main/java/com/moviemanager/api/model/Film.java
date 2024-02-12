@@ -1,31 +1,30 @@
 package com.moviemanager.api.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.time.LocalDate;
 
 @Entity
+@Table(name = "films")
 public class Film {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String title;
-    private String director;
-    private int releaseYear;
-    private String genre;
 
+    private String title;
+
+    @Column(name = "api_id")
+    private int apiId;
+
+    @Column(name = "have_watched")
+    private Boolean haveWatched = false;
+
+
+    @Column(name = "poster_path")
+    private String posterPath;
 
     public Film() {}
-
-    public Film(long id, String title, String director, int releaseYear, String genre) {
-        this.id = id;
-        this.title = title;
-        this.director = director;
-        this.releaseYear = releaseYear;
-        this.genre = genre;
-    }
 
     public long getId() {
         return id;
@@ -43,28 +42,29 @@ public class Film {
         this.title = title;
     }
 
-    public String getDirector() {
-        return director;
+    public int getApiId() {
+        return apiId;
     }
 
-    public void setDirector(String director) {
-        this.director = director;
+    public void setApiId(int apiId) {
+        this.apiId = apiId;
     }
 
-    public int getReleaseYear() {
-        return releaseYear;
+    public Boolean getHaveWatched() {
+        return haveWatched;
     }
 
-    public void setReleaseYear(int releaseYear) {
-        this.releaseYear = releaseYear;
+    public void setHaveWatched(Boolean haveWatched) {
+        this.haveWatched = haveWatched;
     }
 
-    public String getGenre() {
-        return genre;
+
+    public String getPosterPath() {
+        return posterPath;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
     }
 
     @Override
@@ -72,12 +72,8 @@ public class Film {
         return "Film{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", director='" + director + '\'' +
-                ", releaseYear=" + releaseYear +
-                ", genre='" + genre + '\'' +
+                ", apiId=" + apiId +
+                ", haveWatched=" + haveWatched +
                 '}';
     }
-
 }
-
-
