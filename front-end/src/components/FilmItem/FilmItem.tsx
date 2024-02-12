@@ -9,7 +9,6 @@ const FilmItem = ({ film }: FilmItemProps) => {
   return (
     <div className="film-item">
       <h2>{film.title}</h2>
-      <p>{film.director}</p>
     </div>
   );
 }
