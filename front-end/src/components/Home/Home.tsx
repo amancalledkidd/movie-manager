@@ -1,28 +1,17 @@
 import { useEffect, useState } from 'react';
-import FilmItemContainer from '../FilmItemContainer/FilmItemContainer';
-import { Film } from '../../types/Film';
 import './Home.scss'
 import { FilmInfo } from '../../types/FilmApiResponse';
 import PopularFilmContainer from '../PopularFilmContainer/PopularFilmContainer';
+import Navbar from '../Navbar/Navbar';
 
 const Home = () => {
 
-    const [films, setFilms] = useState<Film[]>([]);
     const [popularMovies, setPopularMovies] = useState<FilmInfo[]>([]);
 
     useEffect(() => {
         fetchPopularMovies();
-        getFilms();
     }, []);
 
-    const getFilms = async () => {
-        const response = await fetch('http://localhost:8080/films');
-        const data = await response.json();
-        console.log(data);
-        setFilms(data);
-    }
-
-    
 
     const fetchPopularMovies = async () => {
         const apiKey = import.meta.env.VITE_TMDB_KEY;
@@ -48,8 +37,8 @@ const Home = () => {
 
     return (
         <div>
+        <Navbar />
         <h1>Home</h1>
-        <FilmItemContainer films={films} />
         <PopularFilmContainer popularMovies={popularMovies} />
         </div>
     );
