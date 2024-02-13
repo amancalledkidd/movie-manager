@@ -1,24 +1,29 @@
-// Block
+@use "../../styles/variables" as *;
+
 .navbar {
-    background-color: #333; // Example navbar background
-    padding: 1rem;
+    background-image: linear-gradient(to bottom, $clr-primary-lt, $clr-black);
+    width: 100%; 
+    padding: 1rem 0;
     text-align: center;
+    top: 0;
+    left: 0;
+    z-index: 10;
   
-    // Element
+ 
     a {
-      color: #fff; // Example link color
-      margin: 0 1rem; // Spacing between links
+      color: $clr-white; 
+      margin: 0 1rem; 
       padding: 0.5rem;
       text-decoration: none;
       transition: color 0.3s;
   
       &:hover {
-        color: #4CAF50; // Example hover color
+        color: $clr-primary-lt; 
       }
   
-      // Modifier for an active link
-      &--active {
-        border-bottom: 2px solid #4CAF50; // Example active link indicator
+      
+      &.active { 
+        border-bottom: 2px solid $clr-primary-lt; 
       }
     }
   }
