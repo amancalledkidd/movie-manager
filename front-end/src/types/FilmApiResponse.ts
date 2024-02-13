@@ -7,17 +7,17 @@ export type FilmApiResponse = {
   
 export type FilmInfo = {
     adult: boolean;
-    backdrop_path: string | null; // Path to the backdrop image, can be null
-    genre_ids: number[]; // Array of genre IDs
-    id: number; // Unique ID for the film
-    original_language: string; // Original language of the film
-    original_title: string; // Original title of the film
-    overview: string; // Brief summary of the film
-    popularity: number; // Popularity score of the film
-    poster_path: string | null; // Path to the poster image, can be null
-    release_date: string; // Release date of the film
-    title: string; // Title of the film
-    video: boolean; // Indicates if there's a video available
-    vote_average: number; // Average vote score
-    vote_count: number; // Number of votes
+    backdrop_path: string | null; 
+    genre_ids: number[]; 
+    id: number; 
+    original_language: string; 
+    original_title: string; 
+    overview: string; 
+    popularity: number; 
+    poster_path: string | null; 
+    release_date: string; 
+    title: string; 
+    video: boolean; 
+    vote_average: number; 
+    vote_count: number; 
   };

@@ -3,4 +3,5 @@ export type Film = {
     title: string;
     apiId: string;
     haveWatched: boolean;
+    posterPath: string;
 }
