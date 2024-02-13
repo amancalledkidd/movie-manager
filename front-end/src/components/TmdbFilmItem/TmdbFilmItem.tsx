@@ -1,5 +1,6 @@
 import './TmbdFilmItem.scss';
 import { FilmInfo } from '../../types/FilmApiResponse';
+import { Link } from 'react-router-dom';
 
 type TmdbFilmItemProps = {
     film: FilmInfo;
@@ -19,10 +20,12 @@ const TmdbFilmItem = ({ film, onAdd }: TmdbFilmItemProps) => {
 
   return (
     <div className="film-item-container">
-      <img src={imageUrl} alt={film.title} className="film-item-container__film-image" />
-      <button className="film-item-container__add-icon" onClick={handleAddClick} aria-label={`Add ${film.title} to your list`}>
-        +
-      </button>
+        <Link to={`/film/${film.id}`}>
+            <img src={imageUrl} alt={film.title} className="film-item-container__film-image" />
+        </Link>
+        <button className="film-item-container__add-icon" onClick={handleAddClick} aria-label={`Add ${film.title} to your list`}>
+            +
+        </button>
     </div>
   );
 }
