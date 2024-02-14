@@ -6,12 +6,15 @@ import Navbar from '../Navbar/Navbar';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
 import { Film } from '../../types/Film';
+import ReviewForm from '../ReviewForm/ReviewForm';
+import { Review } from '../../types/Review';
 
 const FilmInfoPage = () => {
     const [filmInfo, setFilmInfo] = useState<FilmInfo | null>(null);
     const [showModal, setShowModal] = useState<boolean>(false);
     const [modalMessage, setModalMessage] = useState<string>('');
     const [myFilm, setMyFilm] = useState<Film>();
+    const [showAddReview, setShowAddReview] = useState<boolean>(false);
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -109,6 +112,29 @@ const FilmInfoPage = () => {
         }
     }
 
+    const handleAddReviewClick = () => {
+        setShowAddReview(true);
+    }
+
+    const handleReviewSubmit = async (review: Review) => {
+        try {
+            const response = await fetch(`http://localhost:8080/film/review`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(review),
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            setShowAddReview(false);
+            setModalMessage("Review added successfully")
+        } catch (err) {
+            console.error('error:', err);
+        }
+    }
+
     const handleModalClose = () => {
         setShowModal(true);
         navigate('/');
@@ -128,15 +154,15 @@ const FilmInfoPage = () => {
                                 <p className="film-info__overview">{filmInfo.overview}</p>
                                 <p className="film-info__release-date">Release date: {filmInfo.release_date}</p>
                                 <p className="film-info__rating">Rating: {filmInfo.vote_average.toPrecision(2)}</p>
+                                {filmId && (
+                                <div className='film-info__buttons'>
+                                    <Button label='Remove from list' onClick={handleRemoveClick} />
+                                    <Button label='Add Review' onClick={handleAddReviewClick}  />
+                                    <Button label='Watched' onClick={handleWatchedClick}/>
+                                </div>
+                        )}
                             </div>
                         </div>
-                        {filmId && (
-                            <>
-                                <Button label='Remove from list' onClick={handleRemoveClick} />
-                                <Button label='Add Review'  />
-                                <Button label='Watched' onClick={handleWatchedClick}/>
-                            </>
-                        )}
                     </div>
                 )}
                 {showModal && (
@@ -146,6 +172,9 @@ const FilmInfoPage = () => {
                             <Button label="OK" onClick={handleModalClose} />
                         ]}
                     />
+                )}
+                {showAddReview && (
+                    <ReviewForm  onSubmit={handleReviewSubmit} filmId={Number(filmId)} />
                 )}
             </div>
         </>

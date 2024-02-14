@@ -1,7 +1,9 @@
+@use "../../styles/variables" as *;
+
 
 .button {
   padding: 10px 15px; 
-  background-color: #007bff;
+  background-color: $clr-primary-lt;
   color: #ffffff; 
   font-size: 16px; 
   border: none; 

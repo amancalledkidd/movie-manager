@@ -2,7 +2,7 @@
     .film-info {
         &__backdrop {
             width: 100%;
-            height: 400px; // Adjust height as needed
+            height: 400px; 
             background-size: cover;
             background-position: center;
             position: relative;
@@ -12,19 +12,19 @@
             display: flex;
             justify-content: center;
             position: relative;
-            top: -100px; // Adjust based on poster size to ensure it overlaps backdrop slightly
-            margin-bottom: -100px; // Adjust to maintain page flow
+            top: -100px; 
+            margin-bottom: -100px; 
         }
 
         &__poster {
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             border-radius: 10px;
-            margin-right: 20px; // Space between poster and details
+            margin-right: 20px;
         }
 
         &__details {
             color: #fff;
-            max-width: 600px; // Adjust based on desired width
+            max-width: 600px;
             padding: 20px;
             background: rgb(0, 0, 0);
             border-radius: 10px;
@@ -43,7 +43,13 @@
             &__rating {
                 font-weight: bold;
             }
+
         }
     }
 }
 
+.film-info__buttons {
+    margin-top: 25px;
+    display: flex;
+    justify-content: space-around;
+}
