@@ -14,8 +14,8 @@ public class Film {
 
     private String title;
 
-    @Column(name = "api_id")
-    private int apiId;
+    @Column(name = "api_id", unique = true)
+    private long apiId;
 
     @Column(name = "have_watched")
     private Boolean haveWatched = false;
@@ -42,7 +42,7 @@ public class Film {
         this.title = title;
     }
 
-    public int getApiId() {
+    public long getApiId() {
         return apiId;
     }
 

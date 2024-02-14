@@ -1,5 +1,6 @@
 package com.moviemanager.api.service;
 
+import com.moviemanager.api.exceptions.FilmAlreadyExists;
 import com.moviemanager.api.exceptions.FilmNotFoundException;
 import com.moviemanager.api.mapper.FilmMapper;
 import com.moviemanager.api.model.Film;
@@ -7,6 +8,7 @@ import com.moviemanager.api.model.FilmData;
 import com.moviemanager.api.repository.FilmRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,10 +23,13 @@ public class FilmService {
     @Autowired
     FilmMapper filmMapper;
 
-
-    public void addFilm(FilmData filmData) {
+    @Transactional
+    public Film addFilm(FilmData filmData) {
         Film film = filmMapper.filmDataToFilm(filmData);
-        filmRepository.save(film);
+        if(filmRepository.existsById(film.getApiId())) {
+            throw new FilmAlreadyExists(film.getTitle() + " is already saved");
+        }
+        return filmRepository.save(film);
     }
 
     @Transactional
@@ -49,12 +54,13 @@ public class FilmService {
     }
 
     // UPDATE
-    public void updateFilm(Film newFilm, long id) {
+    @Modifying
+    public Film updateFilm(Film newFilm, long id) {
         if (!filmRepository.existsById(id)) {
             throw new FilmNotFoundException();
         }
         newFilm.setId(id);
-        filmRepository.save(newFilm);
+        return filmRepository.save(newFilm);
     }
 
     // DELETE
