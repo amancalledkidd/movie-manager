@@ -39,7 +39,7 @@ const Home = () => {
         <div>
         <Navbar />
         <h1>Home</h1>
-        <PopularFilmContainer popularMovies={popularMovies} />
+        <PopularFilmContainer heading="Trending Films" popularMovies={popularMovies} />
         </div>
     );
 };

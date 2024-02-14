@@ -1,4 +1,4 @@
-import './App.scss';
+import "./styles/main.scss";
 import FilmInfoPage from './components/FilmInfoPage/FilmInfoPage';
 import Home from './components/Home/Home';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';

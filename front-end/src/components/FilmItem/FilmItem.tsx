@@ -13,7 +13,7 @@ const FilmItem = ({ film }: FilmItemProps) => {
 
     return (
         <div className="film-item-container">
-            <Link to={`/film/${film.apiId}`}>
+            <Link to={`/film/${film.apiId}-${film.id}`}>
                 <img src={imageUrl} alt={film.title} className="film-item-container__film-image" />
             </Link>
         </div>

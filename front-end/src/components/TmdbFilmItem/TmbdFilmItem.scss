@@ -1,3 +1,5 @@
+@use "../../styles/variables" as *;
+
 .film-item-container {
     position: relative;
     display: inline-block; 
@@ -8,6 +10,9 @@
       width: auto; 
       height: auto; 
       max-height: 300px;
+      &:hover {
+        border: 2px solid $clr-primary-lt;
+      }
     }
   
     &__add-icon {
@@ -22,7 +27,7 @@
       font-size: 1rem;
   
       &:hover {
-        background: rgba(0, 0, 0, 0.7); // Darker background on hover for better UI feedback
+        background: rgba(0, 0, 0, 0.7); 
       }
     }
   }
