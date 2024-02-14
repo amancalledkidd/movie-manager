@@ -1,20 +1,50 @@
 import './FilmInfoPage.scss';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { FilmInfo } from '../../types/FilmApiResponse';
 import Navbar from '../Navbar/Navbar';
+import Button from '../Button/Button';
+import Modal from '../Modal/Modal';
+import { Film } from '../../types/Film';
 
 const FilmInfoPage = () => {
     const [filmInfo, setFilmInfo] = useState<FilmInfo | null>(null);
+    const [showModal, setShowModal] = useState<boolean>(false);
+    const [modalMessage, setModalMessage] = useState<string>('');
+    const [myFilm, setMyFilm] = useState<Film>();
+
     const { id } = useParams();
+    const navigate = useNavigate();
+
+    const filmId = id?.split('-')[1];
+    const apiId = id?.split('-')[0];
 
     useEffect(() => {
         fetchFilmInfo();
-    }, [id]);
+        if (filmId) {
+            fetchMyFilmInfo();
+        }
+    }, []);
+
+    const fetchMyFilmInfo = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/film/${filmId}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const json = await response.json();
+            setMyFilm(json);
+            console.log(json);
+        
+
+        } catch (err) {
+            console.error('error:', err);
+        }
+    }
 
     const fetchFilmInfo = async () => {
         const apiKey = import.meta.env.VITE_TMDB_KEY;
-        const url = `https://api.themoviedb.org/3/movie/${id}?&api_key=${apiKey}`;
+        const url = `https://api.themoviedb.org/3/movie/${apiId}?&api_key=${apiKey}`;
         const options = {
             method: 'GET',
             headers: {
@@ -35,6 +65,55 @@ const FilmInfoPage = () => {
         }
     };
 
+    const handleRemoveClick = async () => {
+        try {
+            const response = await fetch(`http://localhost:8080/film/${filmId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            console.log("Film deleted successfully");
+            setModalMessage("Film deleted successfully")
+            setShowModal(true);
+        } catch (err) {
+            console.error('error:', err);
+        }
+    };
+
+    const handleWatchedClick = async () => {
+        const updateFilm = {
+            ...myFilm,
+            haveWatched: !myFilm?.haveWatched
+        }
+
+        try {
+            const response = await fetch(`http://localhost:8080/film/${filmId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(updateFilm),
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            console.log("Film watched successfully");
+            setModalMessage("Film watched successfully")
+            setShowModal(true);
+        } catch (err) {
+            console.error('error:', err);
+        }
+    }
+
+    const handleModalClose = () => {
+        setShowModal(true);
+        navigate('/');
+    }
+
     return (
         <>
             <Navbar />
@@ -51,11 +130,27 @@ const FilmInfoPage = () => {
                                 <p className="film-info__rating">Rating: {filmInfo.vote_average.toPrecision(2)}</p>
                             </div>
                         </div>
+                        {filmId && (
+                            <>
+                                <Button label='Remove from list' onClick={handleRemoveClick} />
+                                <Button label='Add Review'  />
+                                <Button label='Watched' onClick={handleWatchedClick}/>
+                            </>
+                        )}
                     </div>
+                )}
+                {showModal && (
+                    <Modal
+                        title={modalMessage}
+                        buttons={[
+                            <Button label="OK" onClick={handleModalClose} />
+                        ]}
+                    />
                 )}
             </div>
         </>
     );
+    
 };
 
 export default FilmInfoPage;
