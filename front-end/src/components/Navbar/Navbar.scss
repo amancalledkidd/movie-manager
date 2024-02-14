@@ -1,29 +1,27 @@
 @use "../../styles/variables" as *;
 
 .navbar {
-    background-image: linear-gradient(to bottom, $clr-primary-lt, $clr-black);
+    background-image: linear-gradient(to bottom, $clr-primary-dk, $clr-black);
     width: 100%; 
     padding: 1rem 0;
     text-align: center;
     top: 0;
     left: 0;
     z-index: 10;
-  
- 
+
     a {
-      color: $clr-white; 
-      margin: 0 1rem; 
-      padding: 0.5rem;
-      text-decoration: none;
-      transition: color 0.3s;
-  
-      &:hover {
-        color: $clr-primary-lt; 
-      }
-  
-      
-      &.active { 
-        border-bottom: 2px solid $clr-primary-lt; 
-      }
+        color: $clr-white; 
+        margin: 0 1rem; 
+        padding: 0.5rem;
+        text-decoration: none;
+        transition: color 0.3s;
+    
+        &:hover {
+            color: $clr-primary-lt; 
+        }
+
+        &.active { 
+            border-bottom: 2px solid $clr-primary-lt; 
+        }
     }
-  }
+}

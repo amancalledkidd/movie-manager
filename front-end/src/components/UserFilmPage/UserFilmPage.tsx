@@ -2,6 +2,7 @@ import './UserFilmPage.scss'
 import Navbar from '../Navbar/Navbar';
 import { useEffect, useState } from 'react';
 import FilmItemContainer from '../FilmItemContainer/FilmItemContainer';
+import { Film } from '../../types/Film';
 
 
 const UserFilmPage = () => {
@@ -18,11 +19,17 @@ const UserFilmPage = () => {
         console.log(data);
         setFilms(data);
     }
+
+    const watchedFilms = films.filter((film: Film ) => film.haveWatched === true);
+    const unwatchedFilms = films.filter((film: Film) => film.haveWatched === false);
+
     return (
-        <div>
+        <div className='user-film-page'>
         <Navbar />
-        <h1>UserFilmPage</h1>
-        <FilmItemContainer films={films} />
+        <div className="user-film-page__containers">
+            <FilmItemContainer title="Film list" films={unwatchedFilms} />
+            <FilmItemContainer title="Watched Films" films={watchedFilms} />
+        </div>
         </div>
     );
 }
