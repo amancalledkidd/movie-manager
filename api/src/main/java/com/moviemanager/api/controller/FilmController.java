@@ -4,6 +4,7 @@ import com.moviemanager.api.exceptions.FilmAlreadyExists;
 import com.moviemanager.api.exceptions.FilmNotFoundException;
 import com.moviemanager.api.model.Film;
 import com.moviemanager.api.model.FilmData;
+import com.moviemanager.api.model.Review;
 import com.moviemanager.api.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,12 @@ public class FilmController {
         return ResponseEntity.status(HttpStatus.CREATED).body(newFilm);
     }
 
+    @PostMapping("/film/review")
+    public ResponseEntity<Review> createReview(@RequestBody Review review) {
+        Review newReview = filmsService.addReview(review);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newReview);
+    }
+
 
 
     // READ
@@ -44,7 +51,6 @@ public class FilmController {
     public String testFilm() {
         return "Here is your film";
     }
-
 
     @GetMapping("/films")
     public List<Film> getFilms(
@@ -71,11 +77,23 @@ public class FilmController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedFilm);
     }
 
+    @PutMapping("/film/review/{id}")
+    public ResponseEntity<Review> updateReviewById(@RequestBody Review review, @PathVariable long id) {
+        Review updatedReview = filmsService.updateReview(review, id);
+        return ResponseEntity.status(HttpStatus.OK).body(updatedReview);
+    }
+
     // DELETE
 
     @DeleteMapping("/film/{id}")
-    public String deleteFilmById(@PathVariable long id) {
+    public ResponseEntity<Void> deleteFilmById(@PathVariable long id) {
         filmsService.deleteFilmById(id);
-        return "Deleted Film";
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @DeleteMapping("/film/review/{id}")
+    public ResponseEntity<Void> deleteReviewById(@PathVariable long id){
+        filmsService.deleteReviewById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

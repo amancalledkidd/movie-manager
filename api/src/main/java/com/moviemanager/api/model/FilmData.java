@@ -13,6 +13,7 @@ public class FilmData {
     private String originalTitle;
     private String overview;
     private double popularity;
+
     @JsonProperty("poster_path")
     private String posterPath;
     private String releaseDate;
