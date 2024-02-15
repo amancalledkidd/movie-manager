@@ -1,0 +1,35 @@
+@use "../../styles/variables" as *;
+
+.review {
+    &--background {
+      background-color: $clr-primary-lt;
+      border-left: 5px solid $clr-primary-dk;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      color: $clr-black;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 500px;
+    }
+  
+    &__reviewer {
+      margin-top: 0;
+      color: $clr-primary-dk;
+      font-weight: bold;
+    }
+  
+    &__text {
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+  
+    &__rating {
+      font-weight: bold;
+      color: $clr-white;
+      background-color: $clr-primary-dk;
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-size: 0.9em;
+    }
+  }

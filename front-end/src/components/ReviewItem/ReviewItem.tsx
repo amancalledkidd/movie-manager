@@ -7,7 +7,7 @@ type ReviewItemProps = {
 
 const ReviewItem = ({review}: ReviewItemProps) => {
     return (
-        <div className='review'>
+        <div className='review review--background'>
             <h3 className='review__reviewer'>{review.reviewerName}</h3>
             <p className='review__text'>{review.reviewText}</p>
             <p className='review__rating'>{review.rating}</p>
