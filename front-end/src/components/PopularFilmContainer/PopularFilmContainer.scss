@@ -1,14 +1,27 @@
 @use "../../styles/variables" as *;
 
 .popular-film-container {
+    max-width: 90%; 
+    margin: 0 auto; 
+    border: 0.3px solid $clr-primary-dk; 
+    padding: 20px; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba($clr-black, 0.1); 
+  
+    &__title {
+      text-align: center; 
+      margin-bottom: 20px;
+      color: $clr-primary-dk;
+    }
   
     &__scroll {
       display: flex;
       overflow-x: auto;
       scrollbar-width: thin;
-      scrollbar-color: var(--scrollbar-color, #888) var(--scrollbar-track-color, #e0e0e0); 
+      scrollbar-color: var(--scrollbar-color, #888) var(--scrollbar-track-color, #e0e0e0);
       -webkit-overflow-scrolling: touch;
       gap: 16px;
+      padding: 10px 0; 
   
       &::-webkit-scrollbar {
         height: 8px;
