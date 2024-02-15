@@ -32,7 +32,7 @@ public class FilmService {
     public Film addFilm(FilmData filmData) {
         Film film = filmMapper.filmDataToFilm(filmData);
 //        This is not working as it is checking apiId against id..... needs to compare against api_id to stop duplicates
-        if(filmRepository.existsById(film.getApiId())) {
+        if(filmRepository.existsByApiId(film.getApiId())) {
             throw new FilmAlreadyExists(film.getTitle() + " is already saved");
         }
         return filmRepository.save(film);
