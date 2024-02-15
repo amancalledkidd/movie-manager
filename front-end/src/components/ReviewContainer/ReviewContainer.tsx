@@ -16,6 +16,19 @@ const ReviewContainer = ({filmId}: ReviewContainerProps) => {
         fetchReviews(filmId);
     }, [filmId]);
 
+    const handleDeleteClick = () => {
+        try {
+            fetch(`http://localhost:8080/review/${filmId}`, {
+                method: 'DELETE',
+            });
+            setReviews(reviews.filter(review => review.filmId !== filmId));
+        }
+        catch (err) {
+            console.error('error:', err);
+        }
+    }
+
+
 
     const fetchReviews = async (filmId: number) => {
         try {
@@ -35,7 +48,7 @@ const ReviewContainer = ({filmId}: ReviewContainerProps) => {
         <div className='review-container'>
             <h2 className='review-container__title'>Reviews</h2>
             <div className='review-container__items'>
-                {reviews.map(review => <ReviewItem review={review} key={review.id} />)}
+                {reviews.map(review => <ReviewItem review={review} key={review.id} onclick={handleDeleteClick} />)}
             </div>
             {reviews.length > 3 && <button onClick={() => setShowAll(!showAll)} className='review-container__show-all'>{showAll ? 'Show Less' : 'Show All'}</button>}
         </div>
