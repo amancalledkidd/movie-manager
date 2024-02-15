@@ -135,9 +135,29 @@ const FilmInfoPage = () => {
         }
     }
 
-    const handleModalClose = () => {
+    const handleAddToListClick = async () => {
+        try{
+            const response = await fetch('http://localhost:8080/film', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(filmInfo)
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data);
         setShowModal(true);
-        navigate('/');
+        setModalMessage("Film added to your list")
+        } catch (err) {
+            console.error('error:', err);
+        }
+    }
+
+    const handleModalClose = () => {
+        setShowModal(false);
     }
 
     return (
@@ -155,12 +175,17 @@ const FilmInfoPage = () => {
                                 <p className="film-info__release-date">Release date: {filmInfo.release_date}</p>
                                 <p className="film-info__rating">Rating: {filmInfo.vote_average.toPrecision(2)}</p>
                                 {filmId && (
-                                <div className='film-info__buttons'>
-                                    <Button label='Remove from list' onClick={handleRemoveClick} />
-                                    <Button label='Add Review' onClick={handleAddReviewClick}  />
-                                    <Button label='Watched' onClick={handleWatchedClick}/>
-                                </div>
-                        )}
+                                    <div className='film-info__buttons'>
+                                        <Button label='Remove from list' onClick={handleRemoveClick} />
+                                        <Button label='Add Review' onClick={handleAddReviewClick}  />
+                                        <Button label='Watched' onClick={handleWatchedClick}/>
+                                    </div>
+                                )}
+                                {!filmId && (
+                                    <div className='film-info__buttons'>
+                                        <Button label='Add to list' onClick={handleAddToListClick}/>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
