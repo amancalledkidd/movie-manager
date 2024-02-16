@@ -14,16 +14,16 @@
   user-select: none; 
 
   &:hover {
-    background-color: darken(#007bff, 10%); 
+    background-color: darken($clr-primary-dk, 30%); 
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); 
   }
 
   &:active {
-    transform: scale(0.98); 
-    background-color: darken(#007bff, 15%); 
+    transform: scale(0.95); 
+    background-color: darken($clr-primary-dk, 15%); 
   }
 
   &:focus {
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5); 
+    box-shadow: 0 0 0 2px $clr-primary-dk;
   }
 }
