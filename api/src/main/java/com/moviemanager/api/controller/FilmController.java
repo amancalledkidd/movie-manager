@@ -52,12 +52,15 @@ public class FilmController {
         return "Here is your film";
     }
 
+
     @GetMapping("/films")
     public List<Film> getFilms(
-            @RequestParam(required = false, defaultValue = "10") int limit
+            @RequestParam(required = false, defaultValue = "20") int limit,
+            @RequestParam(required = false, defaultValue = "false") boolean watched
     ) {
-        return filmsService.getAllFilms(limit);
+        return filmsService.getAllFilms(limit, watched);
     }
+
 
     @GetMapping("/film/random")
     public Film getRandomFilm() {
@@ -67,6 +70,11 @@ public class FilmController {
     @GetMapping("/film/{id}")
     public Film getFilmById(@PathVariable long id) {
         return filmsService.getFilmById(id);
+    }
+
+    @GetMapping("/film/{film_id}/reviews")
+    public ResponseEntity<List<Review>> getReviewsByFilmId(@PathVariable long film_id) {
+        return ResponseEntity.status(HttpStatus.OK).body(filmsService.getReviewsByFilmId(film_id));
     }
 
    // UPDATE

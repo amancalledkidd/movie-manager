@@ -31,7 +31,6 @@ public class FilmService {
     @Transactional
     public Film addFilm(FilmData filmData) {
         Film film = filmMapper.filmDataToFilm(filmData);
-//        This is not working as it is checking apiId against id..... needs to compare against api_id to stop duplicates
         if(filmRepository.existsByApiId(film.getApiId())) {
             throw new FilmAlreadyExists(film.getTitle() + " is already saved");
         }
@@ -58,9 +57,15 @@ public class FilmService {
     }
 
 
-    public List<Film> getAllFilms(int limit) {
-        return filmRepository.findAll().stream().limit(limit)
+    public List<Film> getAllFilms(int limit, boolean watched) {
+        return filmRepository.findAll().stream()
+                .filter(film -> film.getHaveWatched() == watched)
+                .limit(limit)
                 .collect(Collectors.toList());
+    }
+
+    public List<Review> getReviewsByFilmId(long filmId) {
+        return reviewRepository.getAllByFilmId(filmId);
     }
 
     // UPDATE
@@ -97,5 +102,6 @@ public class FilmService {
 
         reviewRepository.deleteById(id);
     }
+
 
 }
