@@ -6,22 +6,25 @@ import { Film } from '../../types/Film';
 
 
 const UserFilmPage = () => {
-
-    const [films, setFilms] = useState([]);
+    const [unwatchedFilms, setUnwatchedFilms] = useState<Film[]>([]);
+    const [watchedFilms, setWatchedFilms] = useState<Film[]>([]);
 
     useEffect(() => {
-        getFilms();
+        getFilms(20, false);
+        getFilms(20, true);
     }, []);
 
-    const getFilms = async () => {
-        const response = await fetch('http://localhost:8080/films');
+    const getFilms = async (limit: number, watched: boolean) => {
+        const url = `http://localhost:8080/films?limit=${limit}&watched=${watched}`;
+        const response = await fetch(url);
         const data = await response.json();
-        console.log(data);
-        setFilms(data);
+        if (watched == false) {
+            setUnwatchedFilms(data);
+        } else if (watched == true) {
+            setWatchedFilms(data);
+        }
     }
 
-    const watchedFilms = films.filter((film: Film ) => film.haveWatched === true);
-    const unwatchedFilms = films.filter((film: Film) => film.haveWatched === false);
 
     return (
         <div className='user-film-page'>
