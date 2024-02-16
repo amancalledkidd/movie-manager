@@ -1,5 +1,5 @@
 import './FilmInfoPage.scss';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { FilmInfo } from '../../types/FilmApiResponse';
 import Navbar from '../Navbar/Navbar';
@@ -8,6 +8,7 @@ import Modal from '../Modal/Modal';
 import { Film } from '../../types/Film';
 import ReviewForm from '../ReviewForm/ReviewForm';
 import { Review } from '../../types/Review';
+import ReviewContainer from '../ReviewContainer/ReviewContainer';
 
 const FilmInfoPage = () => {
     const [filmInfo, setFilmInfo] = useState<FilmInfo | null>(null);
@@ -15,12 +16,13 @@ const FilmInfoPage = () => {
     const [modalMessage, setModalMessage] = useState<string>('');
     const [myFilm, setMyFilm] = useState<Film>();
     const [showAddReview, setShowAddReview] = useState<boolean>(false);
+    
 
     const { id } = useParams();
-    const navigate = useNavigate();
 
-    const filmId = id?.split('-')[1];
-    const apiId = id?.split('-')[0];
+
+    let filmId = id?.split('-')[1];
+    let apiId = id?.split('-')[0];
 
     useEffect(() => {
         fetchFilmInfo();
@@ -79,8 +81,7 @@ const FilmInfoPage = () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            console.log("Film deleted successfully");
-            setModalMessage("Film deleted successfully")
+            setModalMessage("Film removed from list")
             setShowModal(true);
         } catch (err) {
             console.error('error:', err);
@@ -104,8 +105,7 @@ const FilmInfoPage = () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            console.log("Film watched successfully");
-            setModalMessage("Film watched successfully")
+            setModalMessage("Film list updated")
             setShowModal(true);
         } catch (err) {
             console.error('error:', err);
@@ -145,10 +145,17 @@ const FilmInfoPage = () => {
             body: JSON.stringify(filmInfo)
         });
         if (!response.ok) {
+            if (response.status === 409) {
+                setModalMessage("Film already in your list")
+                setShowModal(true);
+                return;
+            } else {
             throw new Error(`HTTP error! status: ${response.status}`);
+            }
         }
         const data = await response.json();
-        console.log(data);
+        filmId = data.id;
+        apiId = data.apiId;
         setShowModal(true);
         setModalMessage("Film added to your list")
         } catch (err) {
@@ -188,6 +195,7 @@ const FilmInfoPage = () => {
                                 )}
                             </div>
                         </div>
+                        <ReviewContainer filmId={Number(filmId)} />
                     </div>
                 )}
                 {showModal && (
