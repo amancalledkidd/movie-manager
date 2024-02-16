@@ -16,12 +16,18 @@ const ReviewContainer = ({filmId}: ReviewContainerProps) => {
         fetchReviews(filmId);
     }, [filmId]);
 
-    const handleDeleteClick = () => {
+    const handleDeleteClick = async (id: number) => {
         try {
-            fetch(`http://localhost:8080/review/${filmId}`, {
+            const response = await fetch(`http://localhost:8080/film/review/${id}`, {
                 method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
             });
-            setReviews(reviews.filter(review => review.filmId !== filmId));
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            fetchReviews(filmId);
         }
         catch (err) {
             console.error('error:', err);
@@ -45,12 +51,17 @@ const ReviewContainer = ({filmId}: ReviewContainerProps) => {
 
 
     return (
+
         <div className='review-container'>
-            <h2 className='review-container__title'>Reviews</h2>
-            <div className='review-container__items'>
-                {reviews.map(review => <ReviewItem review={review} key={review.id} onclick={handleDeleteClick} />)}
-            </div>
-            {reviews.length > 3 && <button onClick={() => setShowAll(!showAll)} className='review-container__show-all'>{showAll ? 'Show Less' : 'Show All'}</button>}
+            {reviews.length > 0 &&
+            <>
+                <h2 className='review-container__title'>Reviews</h2>
+                <div className='review-container__items'>
+                    {reviewsToShow.map(review => <ReviewItem review={review} key={review.id} onclick={handleDeleteClick} />)}
+                </div>
+                {reviews.length > 3 && <button onClick={() => setShowAll(!showAll)} className='review-container__show-all'>{showAll ? 'Show Less' : 'Show All'}</button>}
+            </>
+            }
         </div>
     );
 };

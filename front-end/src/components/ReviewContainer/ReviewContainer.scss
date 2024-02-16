@@ -6,33 +6,32 @@
     padding: 20px;
     box-shadow: 0 2px 4px rgba($clr-black, 0.1);
     color: $clr-white;
-  
+
     &__title {
-      color: $clr-primary-dk;
-      text-align: center;
+    color: $clr-primary-dk;
+    text-align: center;
     }
-  
+
     &__items {
-      display: flex;
-      flex-direction: column;
-      align-items: center; 
-      gap: 20px; 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 20px; 
     }
-  
+
     &__show-all {
-      display: block;
-      margin: 20px auto; // Centers the button
-      padding: 10px 20px;
-      background-color: $clr-primary-dk;
-      color: $clr-white;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-  
-      &:hover {
+    display: block;
+    margin: 20px auto; // Centers the button
+    padding: 10px 20px;
+    background-color: $clr-primary-dk;
+    color: $clr-white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
         background-color: darken($clr-primary-dk, 10%);
-      }
     }
-  }
-  
+    }
+}

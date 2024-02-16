@@ -4,7 +4,7 @@ import Delete from '../../assets/icons/delete.svg'
 
 type ReviewItemProps = {
     review: Review
-    onclick: () => void;
+    onclick: (id: number) => void;
 }
 
 const ReviewItem = ({review, onclick}: ReviewItemProps) => {
@@ -13,7 +13,7 @@ const ReviewItem = ({review, onclick}: ReviewItemProps) => {
             <h3 className='review__reviewer'>{review.reviewerName}</h3>
             <p className='review__text'>{review.reviewText}</p>
             <p className='review__rating'>{review.rating}</p>
-            <img src={Delete} alt='delete' className='review__delete' onClick={onclick}/>
+            <img src={Delete} alt='delete' className='review__delete' onClick={() => onclick(Number(review.id))}/>
         </div>
     );
 };
