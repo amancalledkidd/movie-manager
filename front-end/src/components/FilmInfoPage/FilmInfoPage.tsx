@@ -16,20 +16,27 @@ const FilmInfoPage = () => {
     const [modalMessage, setModalMessage] = useState<string>('');
     const [myFilm, setMyFilm] = useState<Film>();
     const [showAddReview, setShowAddReview] = useState<boolean>(false);
+    const [filmId, setFilmId] = useState<number>();
+    const [apiId, setApiId] = useState<number>();
     
 
     const { id } = useParams();
 
-
-    let filmId = id?.split('-')[1];
-    let apiId = id?.split('-')[0];
-
     useEffect(() => {
-        fetchFilmInfo();
-        if (filmId) {
+        const filmIdFromParams = Number(id?.split('-')[1]);
+        const apiIdFromParams = Number(id?.split('-')[0]);
+    
+        setFilmId(filmIdFromParams);
+        setApiId(apiIdFromParams);
+        
+        if (apiIdFromParams) {
+            fetchFilmInfo(apiIdFromParams); // Pass `apiId` directly to the function
+        }
+    
+        if (filmIdFromParams) {
             fetchMyFilmInfo();
         }
-    }, []);
+    }, [id]);
 
     const fetchMyFilmInfo = async () => {
         try {
@@ -47,7 +54,12 @@ const FilmInfoPage = () => {
         }
     }
 
-    const fetchFilmInfo = async () => {
+    const fetchFilmInfo = async (apiId: number) => {
+        if (typeof apiId === 'undefined') {
+            console.error('API ID is undefined, cannot fetch film info');
+            return;
+        }
+
         const apiKey = import.meta.env.VITE_TMDB_KEY;
         const url = `https://api.themoviedb.org/3/movie/${apiId}?&api_key=${apiKey}`;
         const options = {
@@ -83,6 +95,8 @@ const FilmInfoPage = () => {
             }
             setModalMessage("Film removed from list")
             setShowModal(true);
+            setApiId(undefined);
+            setFilmId(undefined);
         } catch (err) {
             console.error('error:', err);
         }
@@ -154,8 +168,8 @@ const FilmInfoPage = () => {
             }
         }
         const data = await response.json();
-        filmId = data.id;
-        apiId = data.apiId;
+        setFilmId(data.id);
+        setApiId(data.apiId);
         setShowModal(true);
         setModalMessage("Film added to your list")
         } catch (err) {
